@@ -4,7 +4,7 @@ This repository showcases my SQL knowledge and proficiency through 8 case studie
 
 ## Table of Contents
 Here are my solutions for each case study.
-- [Case Study #1 - Danny's Diner](./Case Study #1 - Danny's Diner /READme.md)
+- [Case Study #1 - Danny's Diner](./Case%20Study%20%231%20-%20Danny's%20Diner/README.md)
 - [Case Study #2 - Pizza Runner]()
 - [Case Study #3 - Foodie-Fi]()
 - [Case Study #4 - Data Bank]()
