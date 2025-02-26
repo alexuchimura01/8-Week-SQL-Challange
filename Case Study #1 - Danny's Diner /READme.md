@@ -75,15 +75,19 @@ VALUES
 ```
 
 The above database was pre-created on DB Fiddle, and the following solutions will be code and solutions that were run on DB Fiddle.
+
 ---
 ### Case Study Questions & Answers
 **1. What is the total amount each customer spent at the restaurant?**
 
 ``` sql
-SELECT *
-FROM sales
-WHERE customer_id = 2;
+SELECT customer_id, SUM(price) as total_spent
+FROM sales s JOIN menu m
+ON s.product_id = m.product_id
+GROUP BY s.customer_id;
 ```
+
+
 
 **2. How many days has each customer visited the restaurant?**
 
