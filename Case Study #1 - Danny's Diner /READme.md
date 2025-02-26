@@ -117,7 +117,29 @@ GROUP BY customer_id;
 - Step 2: Group by customer_id.
 ***
 **3. What was the first item from the menu purchased by each customer?**
+```sql
+WITH ordered_purchase AS (
+  SELECT 
+    s.customer_id, 
+    s.product_id,
+    s.order_date,
+    ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.order_date ASC) AS rn
+  FROM sales s
+)
+SELECT 
+  op.customer_id,
+  m.product_name,
+  op.order_date
+FROM ordered_purchase op
+JOIN menu m ON op.product_id = m.product_id
+WHERE op.rn = 1;
 
+```
+![image](https://github.com/user-attachments/assets/1ac61fd7-790f-4511-872e-993981f338e5)
+
+- Step 1: Create a mini table called 'ordered_purchase' containing assigned row numbers for each purchase made by customer, ordered by order_date in ascending order. Here the ROW_NUMBER() OVER(PARTITION BY...) clause is partitioning row number assignments to each customer_id, so each customer gets their own independent ranking sequence by order_date, assigning row number 1 to the first purchase.
+- Step 2: Join the 'ordered_purchase' table with menu with the condition of showing only the first row for each customer_id. This is the earliest order_date by customer due to row number partitioning.
+- Step 3: Select customer_id, product_name, and order_date.
 ***
 **4. What is the most purchased item on the menu and how many times was it purchased by all customers?**
 
