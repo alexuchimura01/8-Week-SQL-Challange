@@ -126,6 +126,7 @@ WITH ordered_purchase AS (
     ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.order_date ASC) AS rn
   FROM sales s
 )
+
 SELECT 
   op.customer_id,
   m.product_name,
