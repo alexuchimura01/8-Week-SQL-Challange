@@ -106,6 +106,15 @@ SELECT customer_id, COUNT(DISTINCT order_date) as days_visited
 FROM sales
 GROUP BY customer_id;
 ```
+
+| Customer | Days Visited           |
+|------------|----------------|
+| A          | 4   |
+| B          | 6    |
+| C          | 2       |
+
+- Step 1: Select customer_id and and the count of distinct order_date since one order date signifies the date a customer visited the restaurant.
+- Step 2: Group by customer_id.
 ***
 **3. What was the first item from the menu purchased by each customer?**
 
