@@ -4,11 +4,12 @@
 
 ## Table of Contents
 - [Business Problem](READme.md#business-problem)
-- [ER Diagram]
-- [Case Study Questions & Answers]
+- [ER Diagram](READme.md#er-diagram)
+- [Case Study Questions & Answers](READme.md#case-study-questions--answers)
 
 
 ### Business Problem
+
 
 ### ER Diagram
 ![image](https://github.com/user-attachments/assets/21339843-ad8e-468b-bec8-b7be922e5827)
