@@ -16,5 +16,6 @@ See the entire Case Study #1 [here.](https://8weeksqlchallenge.com/case-study-1/
 ---
 ### ER Diagram
 ![image](https://github.com/user-attachments/assets/21339843-ad8e-468b-bec8-b7be922e5827)
----
+
+***
 ### Case Study Questions & Answers
