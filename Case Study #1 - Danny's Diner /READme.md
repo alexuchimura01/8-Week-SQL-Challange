@@ -14,9 +14,13 @@ Danny wants to use the data to answer a few simple questions about his customers
 See the entire Case Study #1 [here.](https://8weeksqlchallenge.com/case-study-1/)
 
 ---
-### ER Diagram
+### ER Diagram & Database From DB Fiddle
 ![image](https://github.com/user-attachments/assets/21339843-ad8e-468b-bec8-b7be922e5827)
 
+
+![image](https://github.com/user-attachments/assets/d6dba20e-0223-426a-975f-c4c9716925ba)
+
+The 8-Week-SQL-Challenge consists of 
 ---
 ### Case Study Questions & Answers
 **1. What is the total amount each customer spent at the restaurant?**
