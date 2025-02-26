@@ -93,9 +93,12 @@ ORDER BY total_spent DESC;
 | B          | 74    |
 | C          | 36       |
 
-Step 1: Join sales and menu tables since we are wanting to find price per customer.
-Step 2: Group by customer_id.
-Step 3: Select customer_id, the sum of price, and create an alias for SUM(price).
+- Step 1: Join sales and menu tables since we are wanting to find price per customer.
+  
+- Step 2: Group by customer_id.
+  
+- Step 3: Select customer_id, the sum of price, and create an alias for SUM(price).
+  
 
 **2. How many days has each customer visited the restaurant?**
 
