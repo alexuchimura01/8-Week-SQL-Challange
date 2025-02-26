@@ -84,8 +84,14 @@ The above database was pre-created on DB Fiddle, and the following solutions wil
 SELECT customer_id, SUM(price) as total_spent
 FROM sales s JOIN menu m
 ON s.product_id = m.product_id
-GROUP BY s.customer_id ASC;
+GROUP BY s.customer_id
+ORDER BY total_spent DESC;
 ```
+| Customer | Total Spent           |
+|------------|----------------|
+| A          | 76   |
+| B          | 74    |
+| C          | 36       |
 
 
 
