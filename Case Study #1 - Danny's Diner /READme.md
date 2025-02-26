@@ -21,6 +21,12 @@ See the entire Case Study #1 [here.](https://8weeksqlchallenge.com/case-study-1/
 ### Case Study Questions & Answers
 **1. What is the total amount each customer spent at the restaurant?**
 
+``` sql
+SELECT *
+FROM sales
+WHERE customer_id = 2;
+```
+
 **2. How many days has each customer visited the restaurant?**
 
 **3. What was the first item from the menu purchased by each customer?**
