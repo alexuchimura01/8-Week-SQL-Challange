@@ -143,7 +143,20 @@ WHERE op.rn = 1;
 - Step 3: Select customer_id, product_name, and order_date.
 ***
 **4. What is the most purchased item on the menu and how many times was it purchased by all customers?**
+``` sql
+SELECT m.product_name AS most_purchased, COUNT(m.product_id) AS purchase_count
+FROM sales s JOIN menu m
+ON s.product_id = m.product_id
+GROUP BY m.product_name
+ORDER BY purchase_count DESC
+LIMIT 1;
+```
+| Most Purchased | Purchase Count   |
+|------------|----------------|
+| Ramen          | 8   |
 
+- Step 1: Join sales and menu tables to get the count of products sold and product name in the same query.
+- Step 2: Select the count of products from the sales table, group by product name, order the count in descending order and choose the first row.
 ***
 **5. Which item was the most popular for each customer?**
 
