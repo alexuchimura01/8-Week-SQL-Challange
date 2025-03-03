@@ -176,9 +176,9 @@ WHERE rank = 1;
 ```
 ![image](https://github.com/user-attachments/assets/4596bd3f-ec42-4bc7-99fd-4069e2da8a87)
 
-- Step 1: Create a mini table called 'most_popular' that calculates how many times each customer has ordered each product. This is done by using COUNT(m.product_id) to count occurrences, and the GROUP BY clause ensures aggregation happens at the customer and product level.
+- Step 1: Create a mini table called 'most_popular' that calculates how many times each customer has ordered each product by counting m.product_id occurrences. The GROUP BY clause ensures aggregation happens at the customer and product level.
 
-- Step 2: Use DENSE_RANK() OVER(PARTITION BY s.customer_id ORDER BY COUNT(m.product_id) DESC) to rank each product for every customer based on order frequency. DENSE_RANK() is used instead of RANK() to ensure that if multiple items are tied for the top spot, they all receive the same rank without skipping numbers.
+- Step 2: Use DENSE_RANK() to rank each product for every customer based on order frequency. DENSE_RANK() is used instead of RANK() to ensure that if multiple items are tied for the top spot, they all receive the same rank without skipping numbers.
 
 - Step 3: Select only the top-ranked product(s) for each customer by filtering WHERE rank = 1. This ensures that we retrieve all most frequently ordered products for each customer without omitting any tied items. The final output includes customer_id, times_ordered, and most_popular.
 ***
