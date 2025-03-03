@@ -183,7 +183,27 @@ WHERE rank = 1;
 - Step 3: Select only the top-ranked product(s) for each customer by filtering WHERE rank = 1. This ensures that we retrieve all most frequently ordered products for each customer without omitting any tied items. The final output includes customer_id, times_ordered, and most_popular.
 ***
 **6. Which item was purchased first by the customer after they became a member?**
+```sql
+WITH first_ordered AS (
+  SELECT mb.customer_id, m.product_name, s.order_date,
+  	ROW_NUMBER() OVER(PARTITION BY mb.customer_id 
+    ORDER BY s.order_date)
+  AS rank
+  FROM sales s 
+  JOIN members mb ON s.customer_id = mb.customer_id
+  JOIN menu m ON s.product_id = m.product_id
+  WHERE s.order_date > mb.join_date
+) 
+ 
+SELECT customer_id, product_name, order_date AS first_order_after_joining
+FROM first_ordered
+WHERE rank = 1;
+```
+![image](https://github.com/user-attachments/assets/5ff3fea0-c619-4b7a-bec5-2d288fd909f1)
 
+- Step 1: Create a temporary table called 'first_ordered' that filters to each customer's first purchase after becoming a member by first joining the sales, members, and menu tables. Apply the condition WHERE s.order_date > mb.join_date, ensuring we only consider orders placed after the customer joined the membership program.
+Step 2: Use ROW_NUMBER() OVER (PARTITION BY mb.customer_id ORDER BY s.order_date) to assign a unique ranking to each order per customer, sorted by most recent orders at the top. This ranks each customer’s orders sequentially (1, 2, 3...) without skipping numbers, even if multiple orders were placed on the same day. Name this ranking AS rank.
+Step 3: Select customer_id, product_name, and order_date from the created table, with rank = 1 to get each customers first purchase after becoming a member.
 ***
 **7. Which item was purchased just before the customer became a member?**
 
