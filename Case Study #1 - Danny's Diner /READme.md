@@ -202,8 +202,10 @@ WHERE rank = 1;
 ![image](https://github.com/user-attachments/assets/5ff3fea0-c619-4b7a-bec5-2d288fd909f1)
 
 - Step 1: Create a temporary table called 'first_ordered' that filters to each customer's first purchase after becoming a member by first joining the sales, members, and menu tables. Apply the condition WHERE s.order_date > mb.join_date, ensuring we only consider orders placed after the customer joined the membership program.
-Step 2: Use ROW_NUMBER() OVER (PARTITION BY mb.customer_id ORDER BY s.order_date) to assign a unique ranking to each order per customer, sorted by most recent orders at the top. This ranks each customer’s orders sequentially (1, 2, 3...) without skipping numbers, even if multiple orders were placed on the same day. Name this ranking AS rank.
-Step 3: Select customer_id, product_name, and order_date from the created table, with rank = 1 to get each customers first purchase after becoming a member.
+  
+- Step 2: Use ROW_NUMBER() OVER (PARTITION BY mb.customer_id ORDER BY s.order_date) to assign a unique ranking to each order per customer, sorted by most recent orders at the top. This ranks each customer’s orders sequentially (1, 2, 3...) without skipping numbers, even if multiple orders were placed on the same day. Name this ranking AS rank.
+
+- Step 3: Select customer_id, product_name, and order_date from the created table, with rank = 1 to get each customers first purchase after becoming a member.
 ***
 **7. Which item was purchased just before the customer became a member?**
 
