@@ -159,7 +159,21 @@ LIMIT 1;
 - Step 2: Select the count of products from the sales table, group by product name, order the count in descending order and choose the first row.
 ***
 **5. Which item was the most popular for each customer?**
-
+```sql
+WITH most_popular AS (
+  SELECT s.customer_id, COUNT(m.product_id) AS times_ordered, m.product_name as most_popular,
+  	DENSE_RANK() OVER (
+    	PARTITION BY s.customer_id
+    	ORDER BY COUNT(m.product_id) DESC) AS RANK
+  FROM menu m 
+  JOIN sales s
+  ON m.product_id = s.product_id
+  GROUP BY s.customer_id, m.product_name)
+  
+ SELECT customer_id, times_ordered, most_popular
+  FROM most_popular
+  WHERE rank = 1;
+```
 ***
 **6. Which item was purchased first by the customer after they became a member?**
 
