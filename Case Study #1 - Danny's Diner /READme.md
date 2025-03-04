@@ -208,7 +208,29 @@ WHERE rank = 1;
 - Step 3: Select customer_id, product_name, and order_date from the created table, with rank = 1 to get each customers first purchase after becoming a member.
 ***
 **7. Which item was purchased just before the customer became a member?**
+```sql
+WITH last_ordered AS (
+  SELECT mb.customer_id, m.product_name, s.order_date,
+  	DENSE_RANK() OVER(PARTITION BY mb.customer_id 
+    ORDER BY s.order_date DESC)
+  AS rank
+  FROM sales s 
+  JOIN members mb ON s.customer_id = mb.customer_id
+  JOIN menu m ON s.product_id = m.product_id
+  WHERE s.order_date < mb.join_date
+) 
+ 
+SELECT customer_id, product_name, order_date AS order_just_before_joining
+FROM last_ordered
+WHERE rank = 1;
+```
+![image](https://github.com/user-attachments/assets/110d60bb-7d83-4691-8922-3607d852ca9f)
 
+- Step 1: Create a mini table called 'last_ordered' that filters each customer's last purchase before becoming a member by joining sales, members, and menu tables while applying the condition WHERE s.order_date < mb.join_date, ensuring we only consider orders placed before the customer joined the membership program.
+
+- Step 2: Use DENSE_RANK() OVER (PARTITION BY...) to rank each order per customer in descending order of order_date. We must use descending order because we will select rank 1 in the next step, which will pick the data closest to the member's join date. DENSE_RANK() is used here so that if multiple items were ordered on the last purchase date, they all receive the same rank without skipping numbers.
+
+- Step 3: Select only the top-ranked (rank = 1) order(s) for each customer by filtering with WHERE rank = 1 and select customer_id, product_name, and order_just_before_joining, ensuring we capture all items ordered on the last purchase date before membership activation.
 ***
 **8. What is the total items and amount spent for each member before they became a member?**
 
