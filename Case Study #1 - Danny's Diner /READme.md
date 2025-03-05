@@ -233,7 +233,20 @@ WHERE rank = 1;
 - Step 3: Select only the top-ranked (rank = 1) order(s) for each customer by filtering with WHERE rank = 1 and select customer_id, product_name, and order_just_before_joining, ensuring we capture all items ordered on the last purchase date before membership activation.
 ***
 **8. What is the total items and amount spent for each member before they became a member?**
+```sql
+SELECT s.customer_id, COUNT(s.product_id) as "total items", SUM(m.price) as "amount spent ($)"
+FROM sales s JOIN menu m
+ON s.product_id = m.product_id
+JOIN members mb
+ON s.customer_id = mb.customer_id
+WHERE s.order_date  < mb.join_date
+GROUP BY s.customer_id
+ORDER BY s.customer_id;
+```
+![image](https://github.com/user-attachments/assets/428a04b6-130c-4c87-9844-fda292ce7632)
 
+- Step 1: Join sales, menu, and members since we need product_id, order_date, and the price for each product grouped by customer_id. We also need the join_date of members to find each customers' orders before becoming a member.
+- Step 2: Create the condition of order_date < join_date to get all orders before member join_date and group by customer_id. Select customer_id, the count of products, and sum of price.
 ***
 **9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
 
