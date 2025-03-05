@@ -249,6 +249,42 @@ ORDER BY s.customer_id;
 - Step 2: Create the condition of order_date < join_date to get all orders before member join_date and group by customer_id. Select customer_id, the count of products, and sum of price.
 ***
 **9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
+- Version 1: Members only total points after joining
+```sql
+SELECT s.customer_id,
+SUM(
+  CASE 
+  	WHEN m.product_name = 'sushi' THEN m.price * 20
+  	ELSE m.price * 10
+  END
+) AS total_points
+FROM sales s JOIN menu m
+ON s.product_id = m.product_id
+JOIN members mb
+ON s.customer_id = mb.customer_id
+WHERE s.order_date >= mb.join_date
+GROUP BY s.customer_id
+ORDER BY s.customer_id;
+```
+
+![image](https://github.com/user-attachments/assets/b4f1044b-22dd-4b07-8065-8a9463710bde)
+
+- Version 2: If all customers became members from their first order
+```sql
+SELECT s.customer_id,
+SUM(
+  CASE 
+  	WHEN m.product_name = 'sushi' THEN m.price * 20
+  	ELSE m.price * 10
+  END
+) AS total_points
+FROM sales s JOIN menu m
+ON s.product_id = m.product_id
+GROUP BY s.customer_id
+ORDER BY s.customer_id;
+```
+![image](https://github.com/user-attachments/assets/95b0f917-d876-4be7-abe5-328fa9f86238)
+
 
 ***
 **10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
