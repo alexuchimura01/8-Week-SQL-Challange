@@ -316,3 +316,11 @@ ORDER BY s.customer_id;
 
 - Step 1: We want to create a case where one week after joining the loyalty program, all items get 20 points per $1 spent. This changes after the first week (from the assumption above), and the loyalty program reverts to only sushi earning double points with all other items earning 10 points per dollar. Create a CASE which is the sum of the price of an item ordered times 20 when the order date is within 6 days of the join date. Add another WHEN clause to the CASE that signifies when the product is sushi, the price gets 20 points, else it gets 10. Give it a meaningful name.
 - Step 2: Join the necessary tables (sales, menu, members), create a WHERE clause classifying order dates must be before the end of January (as specified in the question), and that the order date must be after the join date to signify that it is a member's order. Group by customer_id.
+
+---
+### Bonus Questions!
+- Join All The Things
+![image](https://github.com/user-attachments/assets/03fd0ef4-53e7-4350-8071-aa2ffa52ced9)
+
+- Rank All The Things
+![image](https://github.com/user-attachments/assets/6039f2f4-e266-455d-9279-1f1d7a542595)
