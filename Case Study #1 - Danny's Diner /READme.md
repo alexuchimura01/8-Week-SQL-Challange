@@ -294,15 +294,15 @@ ORDER BY s.customer_id;
 
 ``` sql
 SELECT s.customer_id,
-	SUM(
-		CASE
-  			WHEN s.order_date BETWEEN mb.join_date AND mb.join_date + INTERVAL '6 days'
-  				THEN m.price * 20
-  			WHEN m.product_name = 'sushi'
-  				THEN m.price * 20
-  			ELSE m.price * 10
-		END
-	) AS total_points_after_joining
+SUM(
+  CASE
+    WHEN s.order_date BETWEEN mb.join_date AND mb.join_date + INTERVAL '6 days'
+	THEN m.price * 20
+    WHEN m.product_name = 'sushi'
+	THEN m.price * 20
+    ELSE m.price * 10
+  END
+) AS total_points_after_joining
 FROM sales s JOIN members mb
 ON s.customer_id = mb.customer_id
 JOIN menu m
