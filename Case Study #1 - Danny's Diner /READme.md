@@ -320,7 +320,9 @@ ORDER BY s.customer_id;
 ---
 ### Bonus Questions!
 - Join All The Things
+  
 ![image](https://github.com/user-attachments/assets/03fd0ef4-53e7-4350-8071-aa2ffa52ced9)
 
 - Rank All The Things
+  
 ![image](https://github.com/user-attachments/assets/6039f2f4-e266-455d-9279-1f1d7a542595)
