@@ -288,4 +288,31 @@ ORDER BY s.customer_id;
 
 ***
 **10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
+- Assumptions:
+  1. After the first week of January (when members earn 2x points for all items), members earn 2x points on sushi only and all other items they earn 10 points per $1
+  2. The first week a customer becomes a member is 6 days after their join date, since they are a member the day they join and the 2x points on all items applies on that day
 
+``` sql
+SELECT s.customer_id,
+	SUM(
+		CASE
+  			WHEN s.order_date BETWEEN mb.join_date AND mb.join_date + INTERVAL '6 days'
+  				THEN m.price * 20
+  			WHEN m.product_name = 'sushi'
+  				THEN m.price * 20
+  			ELSE m.price * 10
+		END
+	) AS total_points_after_joining
+FROM sales s JOIN members mb
+ON s.customer_id = mb.customer_id
+JOIN menu m
+ON s.product_id = m.product_id
+WHERE s.order_date < '2021-01-31'
+AND s.order_date >= mb.join_date
+GROUP BY s.customer_id
+ORDER BY s.customer_id;
+```
+![image](https://github.com/user-attachments/assets/019025b1-b74a-4c31-8426-bbb4ae4e0135)
+
+- Step 1: We want to create a case where one week after joining the loyalty program, all items get 20 points per $1 spent. This changes after the first week (from the assumption above), and the loyalty program reverts to only sushi earning double points with all other items earning 10 points per dollar. Create a CASE which is the sum of the price of an item ordered times 20 when the order date is within 6 days of the join date. Add another WHEN clause to the CASE that signifies when the product is sushi, the price gets 20 points, else it gets 10. Give it a meaningful name.
+- Step 2: Join the necessary tables (sales, menu, members), create a WHERE clause classifying order dates must be before the end of January (as specified in the question), and that the order date must be after the join date to signify that it is a member's order. Group by customer_id.
